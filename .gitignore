@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.pytest_cache/
+.venv/
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+
+# Env files
+.env
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# Project outputs
+outputs/

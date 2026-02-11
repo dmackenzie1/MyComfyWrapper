@@ -1,0 +1,3 @@
+name_or_path,weight,trigger_words,enabled
+high/wan2.2_i2v_lightx2v_4steps_lora_v1_high_noise.safetensors,1.0,"cinematic, sharp",true
+low/wan2.2_i2v_lightx2v_4steps_lora_v1_low_noise.safetensors,1.0,"smooth motion",true
