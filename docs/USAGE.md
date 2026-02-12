@@ -7,6 +7,9 @@ uv run my-comfy-wrapper inspect-workflow \
   --workflow-template wrappers/20260211-wan2-template.json
 ```
 
+`inspect-workflow` requires only `--workflow-template`; LoRA CSV and input images are only required for `run`.
+`--dry-run` is supported on `run` only.
+
 ## Dry run
 
 ```bash

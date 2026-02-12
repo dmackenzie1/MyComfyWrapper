@@ -34,7 +34,7 @@ def make_parser() -> argparse.ArgumentParser:
 
     inspect_parser = subparsers.add_parser("inspect-workflow", help="Inspect patch targets from workflow template")
     add_common_flags(inspect_parser)
-    inspect_parser.add_argument("--dry-run", action="store_true")
+    inspect_parser.set_defaults(dry_run=False)
 
     return parser
 
@@ -44,7 +44,11 @@ def main() -> None:
     args = parser.parse_args()
     config = build_config(args)
 
-    for path_attr in ("workflow_template", "lora_csv"):
+    required_paths = ["workflow_template"]
+    if args.command == "run":
+        required_paths.extend(["lora_csv", "input_dir"])
+
+    for path_attr in required_paths:
         path = getattr(config, path_attr)
         if not path.exists():
             raise FileNotFoundError(f"Required path not found: {path}")
