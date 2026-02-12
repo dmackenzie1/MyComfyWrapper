@@ -22,7 +22,7 @@ class PipelineApp:
     def __init__(self, config: AppConfig) -> None:
         self.config = config
         self.template = WorkflowTemplate.from_path(config.workflow_template)
-        self.lora_catalog = LoraCatalog.from_csv(config.lora_csv)
+        self.lora_catalog: LoraCatalog | None = None
 
         ollama = OllamaClient(config.ollama_base_url)
         self.describer = ImageDescriber(
@@ -45,6 +45,7 @@ class PipelineApp:
         return lines
 
     def run(self) -> None:
+        self.lora_catalog = LoraCatalog.from_csv(self.config.lora_csv)
         images = [p for p in sorted(self.config.input_dir.iterdir()) if p.suffix.lower() in IMAGE_EXTS]
         if not images:
             raise ValueError(f"No images found in {self.config.input_dir}")
@@ -67,6 +68,9 @@ class PipelineApp:
             if manifest.get("status") == "completed":
                 print(f"[resume] Skipping {image_id} variant {variant}")
                 return
+
+        if self.lora_catalog is None:
+            raise RuntimeError("LoRA catalog not initialized. Call run() before processing variants.")
 
         enabled_loras = self.lora_catalog.enabled()
         seed = self._pick_seed(variant)

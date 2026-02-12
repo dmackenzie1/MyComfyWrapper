@@ -13,7 +13,7 @@
 
 1. Load config (`CLI > env/.env > defaults`).
 2. Load workflow template and inspect candidate patch targets.
-3. Load LoRA CSV and keep enabled rows.
+3. For `run`, load LoRA CSV and keep enabled rows (`inspect-workflow` skips this).
 4. For each image + variant:
    - Build description with `ImageDescriber`.
      - Optional vision mode: sends the image to Ollama (`images` payload).

@@ -69,6 +69,6 @@ def build_config(args) -> AppConfig:
         action_hint=args.action_hint or os.getenv("ACTION_HINT", ""),
         concurrency=int(args.concurrency or os.getenv("CONCURRENCY", "1")),
         resume=args.resume or _env_bool("RESUME", False),
-        dry_run=args.dry_run,
+        dry_run=getattr(args, "dry_run", False),
         workflow_node_overrides={str(k): int(v) for k, v in workflow_node_overrides.items()},
     )
